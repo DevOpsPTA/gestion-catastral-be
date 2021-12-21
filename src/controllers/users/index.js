@@ -25,10 +25,10 @@ router.post('/login', async (req, res, next) => {
 
         // if (user && (await bcrypt.compare(password, user.password))) {
         if (user && (password == user.password)) {
-            const accessToken = generateAccessToken(user._id, user.email, user.role);
+            const accessToken = generateAccessToken(user._id, user.email, user.rol);
             res.status(200).json({
                 token: accessToken,
-                role: user.role
+                role: user.rol
             });
         } else {
             res.status(404).json({ message: 'User not found' });

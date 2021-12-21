@@ -13,6 +13,7 @@ const app = express();
 conectarDB();
 //habilitar express.json
 
+app.use(cors());
 app.use(express.json({ extended: true}));
 
 //puerto de la app
@@ -26,9 +27,6 @@ app.use('/usuarios', require ('./routes/usuario'));
 app.use('/predios', require ('./routes/predio'));
 app.use('/convenios', require ('./routes/convenio'));
 app.use('/pagos', require ('./routes/pago'));
-
-
-app.use(cors());
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', function(req, res) {
