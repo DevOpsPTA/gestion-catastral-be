@@ -25,7 +25,7 @@ exports.crearPredio = async (req, res) => {
 exports.obtenerPredio = async (req, res) => {
     try {
         const predio = await predios.find({predios});
-        res.json({predio});
+        res.json(predio);
         
     } catch (error) {
         console.log(error);
