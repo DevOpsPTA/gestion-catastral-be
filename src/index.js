@@ -1,29 +1,40 @@
 import TaskRouter from './controllers/users';
-require("./config/database").connect();
 
 const express = require('express');
 const cors = require('cors');
+const conectarDB = require('./config/db');
+
+
+//crear servidor
 const app = express();
 
+//conectar BD
+
+conectarDB();
+//habilitar express.json
+
+app.use(express.json({ extended: true}));
+
+//puerto de la app
+const PORT = process.env.PORT || 3001;
+
+//importar rutas
+
+
+app.use('', TaskRouter);
+app.use('/usuarios', require ('./routes/usuario'));
+app.use('/predios', require ('./routes/predio'));
+app.use('/convenios', require ('./routes/convenio'));
+app.use('/pagos', require ('./routes/pago'));
+
+
 app.use(cors());
-app.use(express.json());
-app.use('/users', TaskRouter);
-
-
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', function(req, res) {
   res.json('hello world');
 });
-app.get('/predial', function(req, res) {
-    res.json('pago predial')
-  });  
 
-app.post('/predial', function(req, res) {
-    res.json('pago predial')
-  });  
-
-app.listen(3001, () => {
-    console.log("escuchando puert:..", 3001);
-    //console.log("valor", DB_URL);
-});
+app.listen(PORT, () => {
+    console.log(`escuchando puerto:.. ${PORT}`);
+  });

@@ -1,4 +1,4 @@
-const Usuario =require('../models/Usuarios')
+const Usuario =require('../models/usuarios')
 exports.crearUsuario = async (req,res) => {
  
     try {

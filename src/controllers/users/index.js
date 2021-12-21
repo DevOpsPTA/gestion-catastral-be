@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { generateAccessToken } from '../../utilities/jwt';
 
-const User = require('../../models/usuarios/usuario');
+const User = require('../../models/usuarios');
 
 // Se establecen las rutas.
 const router = Router();
@@ -19,26 +19,19 @@ router.post('/login', async (req, res, next) => {
         if (!(email && password)) {
             res.status(400).json({ message: "All input is required" });
         }
-        // Validate if user exist in our database
-        //const user = User(body);
-        //user.save()
-        //.then((data) => res.json(data))
-        //.catch((error) => res.json({message:error}));
 
-        const user = await User.findOne({ email });
-
+        const user = await User.findOne({ username: email });
         console.log(user);
-        console.log(user.roles);
 
         // if (user && (await bcrypt.compare(password, user.password))) {
         if (user && (password == user.password)) {
-            const accessToken = generateAccessToken(user._id, user.email);
+            const accessToken = generateAccessToken(user._id, user.email, user.role);
             res.status(200).json({
-                token1: accessToken,
+                token: accessToken,
                 role: user.role
             });
         } else {
-            res.status(404).json({ message: "User not found" });
+            res.status(404).json({ message: 'User not found' });
         }
 
     } catch (err) {
