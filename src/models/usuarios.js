@@ -5,7 +5,12 @@ const UsuariosSchema = mongoose.Schema({
         required: true,
         trim: true
     },
-   username:{
+    name:{
+        type:String,
+        required: false,
+        trim: true
+    },
+    username:{
         type:String,
         required: true,
         trim: true

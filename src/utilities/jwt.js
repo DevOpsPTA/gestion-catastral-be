@@ -9,8 +9,8 @@ const JWT_SECRET = 'a141d32e970fd0b08b71addadc4b5c14bb2a9c09df5342b56498c1c4705b
  * @returns {String}
  */
 
-function generateAccessToken(id, email) {
-  return JWTServices.sign({ id, email }, JWT_SECRET, { expiresIn: '1d' });
+function generateAccessToken(id, email, role) {
+  return JWTServices.sign({ id, email, role }, JWT_SECRET, { expiresIn: '1d' });
 }
 
 /**
